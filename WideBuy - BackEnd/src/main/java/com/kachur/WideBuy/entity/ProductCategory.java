@@ -23,6 +23,6 @@ public class ProductCategory {
     @Column(name = "category_name")
     private String categoryName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productCategory")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Product> products;
 }
