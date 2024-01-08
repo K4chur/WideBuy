@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <img src="{{product.imageUrl}}" class="img-thumbnail" alt="product image">
+    </div>
+    <div class="col-md-9 ">
+      <p class="h3 text-center">{{ product.name }}</p>
+      <hr>
+      <p class="text-center">{{ product.description }}</p>
+      <hr>
+      <div class="d-flex justify-content-center">
+        <a href="#" class="text-muted btn btn-outline-primary">Add to cart</a>
+        <a routerLink="/products" class="ms-2 text-muted btn btn-outline-info">Go back to products!</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
