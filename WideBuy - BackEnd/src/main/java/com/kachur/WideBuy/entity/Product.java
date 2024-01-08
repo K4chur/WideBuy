@@ -20,11 +20,17 @@ import java.util.Date;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "id")
     private Long Id;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "unit_price")
     private BigDecimal unitPrice;

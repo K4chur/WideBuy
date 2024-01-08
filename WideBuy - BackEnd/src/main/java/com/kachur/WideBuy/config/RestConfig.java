@@ -29,7 +29,7 @@ public class RestConfig implements RepositoryRestConfigurer {
         closeHttpExposure(config, ProductCategory.class);
 
         config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream().map(Type::getJavaType).toList().toArray(new Class[0]));
-        cors.addMapping("/wide_buy/**").allowedOrigins("http://localhost:4200");
+        cors.addMapping("/wide-buy/**").allowedOrigins("http://localhost:4200");
     }
 
     private void closeHttpExposure(RepositoryRestConfiguration config, Class someClass) {
