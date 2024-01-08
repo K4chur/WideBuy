@@ -4,7 +4,7 @@ E-Commerce shop named "WideBuy", created as a pet project to practice FullStack 
 What was implemented:
 - Product and ProductCategory repos, cors access and disabling appending http methods on a backend.
 - Navbar, footer, product-list, product-details components and product service for fetching data.
-
+//TODO: Cart, Checkout, Login-SignUp-Authentication (Okta or Spring Security), Customer and Ordering data, Rating for products (maybe something more)
 
 Basic layouts of:
 - main page:
