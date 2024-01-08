@@ -9,9 +9,11 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Route, RouterModule} from "@angular/router";
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Route[] = [
   {path: 'products', component: ProductListComponent},
+  {path: 'cart', component: CartComponent},
   {path: 'search/:searchKey', component: ProductListComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'category/:id', component: ProductListComponent},
@@ -25,7 +27,8 @@ const routes: Route[] = [
     NavbarComponent,
     FooterComponent,
     ProductListComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
