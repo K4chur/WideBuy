@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <div *ngIf="cartItems.length > 0">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col" class="col-4"></th>
+        <th scope="col" class="сol-3">Item Details</th>
+        <th scope="col" class="col-4">About:</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cartItem of cartItems">
+        <td><img src="{{cartItem.imageUrl}}" alt="product image" class="img-fluid" width="150px"/></td>
+        <td>
+          <span class="h4">{{ cartItem.name }}</span>
+        </td>
+        <td>
+          <p><button class="btn bi bi-dash-square mx-2" (click)="removeAnother(cartItem)"></button>Quantity: {{ cartItem.quantity }}<button class="btn mx-2 bi bi-plus-square" (click)="addAnother(cartItem)"></button></p>
+          <p>Price: {{ cartItem.unitPrice * cartItem.quantity | currency:'USD' }}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-4"></td>
+        <td class="col-3">
+          <span class="h4 d-flex mt-4">Total spending: </span>
+        </td>
+        <td class="col-4">
+          <p> Total quantity: {{ totalQuantity }}</p>
+          <p> Total price: {{ totalPrice | currency:'USD' }} </p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center mb-3">
+      <button class="btn btn-outline-success ">Go to Checkout!</button>
+    </div>
+  </div>
+
+  <div *ngIf="cartItems.length == 0" class="alert alert-warning">
+    Cart is empty
+  </div>
+</div>

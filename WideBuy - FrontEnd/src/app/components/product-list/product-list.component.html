@@ -17,7 +17,7 @@
           </div>
 
           <div class="d-flex justify-content-between mb-2">
-            <a href="#" class="text-muted btn btn-outline-primary">Add to cart</a>
+            <button (click)="addToCart(product)" class="text-muted btn btn-outline-primary">Add to cart</button>
             <a routerLink="/product/{{product.id}}"  class="ms-2 text-muted btn btn-outline-info">Details</a>
             <div class="ms-auto text-warning mt-2">
               <i class="bi bi-star"></i>

@@ -2,6 +2,8 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Product} from "../../common/product/product";
 import {ProductService} from "../../services/product-service/product.service";
 import {ActivatedRoute} from "@angular/router";
+import {CartItem} from "../../common/cart-item/cart-item";
+import {CartService} from "../../services/cart-service/cart.service";
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +19,8 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
 
   constructor(private productService: ProductService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private cartService: CartService) {
   }
 
   ngOnInit() {
@@ -31,28 +34,28 @@ export class ProductListComponent implements OnInit {
     )
   }
 
-  getProducts(){
-    if(this.route.snapshot.paramMap.has('id')){
-      this.productService.fetchProductsOfCategory(this.page-1, this.pageSize, +this.route.snapshot.paramMap.get('id')!).subscribe(
+  getProducts() {
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.productService.fetchProductsOfCategory(this.page - 1, this.pageSize, +this.route.snapshot.paramMap.get('id')!).subscribe(
         data => {
           this.products = data._embedded.products;
-          this.page = data.page.number+1;
+          this.page = data.page.number + 1;
           this.totalElements = data.page.totalElements;
         }
       )
-    } else if(this.route.snapshot.paramMap.has('searchKey')){
-      this.productService.fetchProductsBySearchKey(this.page-1, this.pageSize, this.route.snapshot.paramMap.get('searchKey')!).subscribe(
+    } else if (this.route.snapshot.paramMap.has('searchKey')) {
+      this.productService.fetchProductsBySearchKey(this.page - 1, this.pageSize, this.route.snapshot.paramMap.get('searchKey')!).subscribe(
         data => {
           this.products = data._embedded.products;
-          this.page = data.page.number+1;
+          this.page = data.page.number + 1;
           this.totalElements = data.page.totalElements;
         }
       )
     } else {
-      this.productService.fetchProducts(this.page-1,this.pageSize).subscribe(
+      this.productService.fetchProducts(this.page - 1, this.pageSize).subscribe(
         data => {
           this.products = data._embedded.products;
-          this.page = data.page.number+1;
+          this.page = data.page.number + 1;
           this.totalElements = data.page.totalElements;
         }
       )
@@ -62,5 +65,10 @@ export class ProductListComponent implements OnInit {
   updatePageSize(value: string) {
     this.pageSize = +value;
     this.getProducts();
+  }
+
+  addToCart(product: Product) {
+    let cartItem: CartItem = new CartItem(product.id, product.name, product.imageUrl, product.unitPrice);
+    this.cartService.addCartItem(cartItem);
   }
 }
