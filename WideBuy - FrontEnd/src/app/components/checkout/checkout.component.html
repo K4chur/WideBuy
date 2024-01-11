@@ -1,0 +1,126 @@
+<div class="container" style="width: 60%">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <p class="h3 mt-3 d-flex justify-content-center">Checkout</p>
+    <hr>
+    <div formGroupName="userInfo">
+      <p class="h4 mb-3 d-flex justify-content-center">User info</p>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="firstName" id="firstName" placeholder="Name"
+               [classList]="firstName?.invalid && firstName?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="firstName">First Name</label>
+        <div *ngIf="firstName!.invalid && firstName?.touched" class="invalid-feedback">
+          Please provide a valid first name.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="lastName" id="lastName" placeholder="Surname"
+               [classList]="lastName?.invalid && lastName?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="lastName">Last Name</label>
+        <div *ngIf="lastName!.invalid && lastName?.touched" class="invalid-feedback">
+          Please provide a valid last name.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" formControlName="email" id="email" placeholder="email@example.com"
+               [classList]="email?.invalid && email?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="email">Email address</label>
+        <div *ngIf="email!.invalid && email?.touched" class="invalid-feedback">
+          Please provide a valid email address.
+        </div>
+      </div>
+    </div>
+    <div formGroupName="shippingInfo">
+      <p class="h4 mb-3 d-flex justify-content-center">Shipping Info</p>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="country" id="country" placeholder="Country"
+               (change)="onChangedCountry()"
+               [(ngModel)]="modelCountry" [ngbTypeahead]="searchCountries"
+               [classList]="country?.invalid && country?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="country">Country</label>
+        <div *ngIf="country!.invalid && country?.touched" class="invalid-feedback">
+          Please provide a valid country.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="region" id="region" placeholder="Region"
+               (change)="onChangedRegion()"
+               [(ngModel)]="modelRegion" [ngbTypeahead]="searchRegions"
+               [classList]="region?.invalid && region?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="region">Region</label>
+        <div *ngIf="region!.invalid && region?.touched" class="invalid-feedback">
+          Please provide a valid region.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="city" id="city" placeholder="City"
+               [(ngModel)]="modelCity" [ngbTypeahead]="searchCities"
+               [classList]="city?.invalid && city?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="city">City</label>
+        <div *ngIf="city!.invalid && city?.touched" class="invalid-feedback">
+          Please provide a valid city.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="street" id="street" placeholder="Street"
+               [classList]="street?.invalid && street?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="street">Street</label>
+        <div *ngIf="street!.invalid && street?.touched" class="invalid-feedback">
+          Please provide a valid street.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" formControlName="zipCode" id="zipCode" placeholder="Zip Code"
+               [classList]="zipCode?.invalid && zipCode?.touched ? 'is-invalid form-control' : 'form-control'">
+        <label for="zipCode">ZipCode</label>
+        <div *ngIf="zipCode!.invalid && zipCode?.touched" class="invalid-feedback">
+          Please provide a valid postal code.
+        </div>
+      </div>
+    </div>
+    <div formGroupName="cardDetails">
+      <p class="h4 mb-3 d-flex justify-content-center">Card details</p>
+      <div class="row row-cols-lg-3 g-3 row-cols-sm-auto align-items-center">
+        <div class="col-lg-4">
+          <div class="mb-3">
+            <input type="number" formControlName="cardNumber" id="cardNumber" placeholder="Card Number"
+                   [classList]="cardNumber?.invalid && cardNumber?.touched ? 'is-invalid form-control mt-4' : 'form-control'">
+            <div *ngIf="cardNumber!.invalid && cardNumber?.touched" class="invalid-feedback">
+              Please provide a valid card number.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Expiration Date</span>
+            <select aria-label="expirationMonth" formControlName="expirationMonth" id="expirationMonth"
+                    [classList]="expirationMonth?.invalid && expirationMonth?.touched ? 'is-invalid form-select' : 'form-select'">
+              <option *ngFor="let month of months">{{month}}</option>
+            </select>
+            <span class="input-group-text">/</span>
+            <select aria-label="expirationYear" formControlName="expirationYear" id="expirationYear"
+                    [classList]="expirationYear?.invalid && expirationYear?.touched ? 'is-invalid form-select' : 'form-select'" #yearSelect (change)="handleYearChange(yearSelect.value)">
+              <option *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text">CVV</span>
+            <input type="number" aria-label="securityCode" formControlName="securityCode" id="securityCode"
+                   [classList]="securityCode?.invalid && securityCode?.touched ? 'is-invalid form-control' : 'form-control'">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center mb-3">
+        <button [ngClass]="form.invalid && form.touched ? 'btn btn-danger':'btn btn-outline-success'"  type="submit" [disabled]="form.invalid">Purchase!</button>
+    </div>
+    <div class="d-flex justify-content-center mb-3">
+      <div *ngIf="form.invalid && form.touched" class="alert alert-warning"> Form is not valid!</div>
+    </div>
+
+  </form>
+</div>

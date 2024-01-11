@@ -10,10 +10,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Route, RouterModule} from "@angular/router";
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 const routes: Route[] = [
   {path: 'products', component: ProductListComponent},
   {path: 'cart', component: CartComponent},
+  {path: 'checkout', component: CheckoutComponent},
   {path: 'search/:searchKey', component: ProductListComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'category/:id', component: ProductListComponent},
@@ -28,13 +31,15 @@ const routes: Route[] = [
     FooterComponent,
     ProductListComponent,
     ProductDetailComponent,
-    CartComponent
+    CartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
