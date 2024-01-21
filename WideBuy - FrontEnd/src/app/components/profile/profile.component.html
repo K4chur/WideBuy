@@ -1,0 +1,21 @@
+<div class="container d-flex justify-content-center mt-3">
+  <div class="w-60">
+    <div class="d-flex justify-content-center">
+      <img src="assets/images/photoPlaceholder.jpg" alt="profilePicture" class="img-fluid rounded">
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+      <p class="text-black">User name: {{ sessionStorage.getItem('app.username') }}</p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div>
+        <p class="h4">Order History:</p>
+      </div>
+    </div>
+    <div *ngIf="orders.length > 0">
+
+    </div>
+    <div *ngIf="orders.length < 1" class="alert-warning alert">
+      <p class="text-center mb-0">There is no order data!</p>
+    </div>
+  </div>
+</div>

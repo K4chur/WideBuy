@@ -8,15 +8,21 @@ import {ProductListComponent} from './components/product-list/product-list.compo
 import {HttpClientModule} from "@angular/common/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Route, RouterModule} from "@angular/router";
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { CartComponent } from './components/cart/cart.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
+import {ProductDetailComponent} from './components/product-detail/product-detail.component';
+import {CartComponent} from './components/cart/cart.component';
+import {CheckoutComponent} from './components/checkout/checkout.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {LoginComponent} from './components/login/login.component';
+import {ProfileComponent} from './components/profile/profile.component';
+import {TokenInterceptor} from "./interceptors/token-interceptor/token.interceptor";
+import {authGuard} from "./guards/auth-guart/auth.guard";
 
 const routes: Route[] = [
+  {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: 'products', component: ProductListComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'checkout', component: CheckoutComponent},
+  {path: 'checkout', component: CheckoutComponent, canActivate: [authGuard]},
   {path: 'search/:searchKey', component: ProductListComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'category/:id', component: ProductListComponent},
@@ -32,7 +38,9 @@ const routes: Route[] = [
     ProductListComponent,
     ProductDetailComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +49,7 @@ const routes: Route[] = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [TokenInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule {

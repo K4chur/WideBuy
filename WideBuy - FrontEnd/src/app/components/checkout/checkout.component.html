@@ -6,6 +6,7 @@
     <div formGroupName="userInfo">
       <p class="h4 mb-3 d-flex justify-content-center">User info</p>
       <div class="form-floating mb-3">
+        <input type="hidden" formControlName="username" id="username">
         <input type="text" formControlName="firstName" id="firstName" placeholder="Name"
                [classList]="firstName?.invalid && firstName?.touched ? 'is-invalid form-control' : 'form-control'">
         <label for="firstName">First Name</label>

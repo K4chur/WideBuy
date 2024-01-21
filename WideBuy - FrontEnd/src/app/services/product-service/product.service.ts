@@ -13,8 +13,8 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  private categoryUrl = environment.baseUrl + '/product-categories'
-  private productUrl = environment.baseUrl + '/products'
+  private categoryUrl = environment.wideBuyUrl + '/product-categories'
+  private productUrl = environment.wideBuyUrl + '/products'
 
   fetchProducts(page: number, pageSize: number): Observable<GetProducts> {
     return this.http.get<GetProducts>(this.productUrl + `?page=${page}&size=${pageSize}&sort=name,asc`)

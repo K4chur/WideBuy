@@ -41,6 +41,7 @@ export class CheckoutComponent implements OnInit {
     )
     this.form = new FormGroup({
       userInfo: new FormGroup({
+        username: new FormControl(sessionStorage.getItem('app.username'), this.commonValidation),
         firstName: new FormControl('', this.commonValidation),
         lastName: new FormControl('', this.commonValidation),
         email: new FormControl('', [Validators.required, Validators.email]),

@@ -22,14 +22,15 @@
         </li>
       </ul>
       <ul class="navbar-nav me-2 mb-2 mb-lg-0">
-        <li class="nav-item me-2">
-          <a class="btn btn-outline-primary" aria-current="page" href="#" >Login</a>
+        <li class="nav-item me-2" *ngIf="!authenticated">
+          <a  class="btn btn-outline-primary" aria-current="page" routerLink="/login" >Login</a>
         </li>
-        <li class="nav-item me-2">
-          <a class="btn btn-outline-secondary" aria-current="page" href="#" >Profile</a>
+
+        <li class="nav-item me-2" *ngIf="authenticated">
+          <a class="btn btn-outline-secondary" aria-current="page" routerLink="/profile" >Profile, {{sessionStorage.getItem('app.username')}}</a>
         </li>
-        <li class="nav-item me-2">
-          <a class="btn btn-outline-danger" aria-current="page" href="#" >Logout</a>
+        <li class="nav-item me-2" *ngIf="authenticated">
+          <button class="btn btn-outline-danger" aria-current="page" (click)="logout()" >Logout</button>
         </li>
         <li class="nav-item me-2">
           <a class="btn btn-outline-success bi bi-basket" aria-current="page" routerLink="/cart" > {{cartLength == 0 ? '' : cartLength}}</a>

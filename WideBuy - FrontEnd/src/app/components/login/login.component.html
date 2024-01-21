@@ -1,0 +1,33 @@
+<div class="container" style="width: 60%">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="d-flex justify-content-center mb-3">
+      <p class="h2" [textContent]="isLogging ? 'Login' : 'Registration'"></p>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="text" id="username" formControlName='username' placeholder="Username" class="form-control"
+        [classList]="username!.invalid && username!.touched ? 'form-control is-invalid' : 'form-control '">
+      <label for="username">Username</label>
+      <div *ngIf="username!.invalid && username?.touched" class="invalid-feedback">
+        Please provide a valid username.
+      </div>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="password" id="password" formControlName='password' placeholder="Password"
+             [classList]="password!.invalid && password!.touched ? 'form-control is-invalid' : 'form-control '">
+      <label for="password">Password</label>
+      <div *ngIf="password!.invalid && password?.touched" class="invalid-feedback">
+        Please provide a valid password.
+      </div>
+    </div>
+
+    <div class="mb-3 d-flex justify-content-center">
+      <button type="submit" class="btn btn-success mx-3" [textContent]="isLogging ? 'Login' : 'Register'" [disabled]="form.invalid"></button>
+      <button type="button" class="btn btn-secondary" (click)="changeType()" [textContent]="!isLogging ? 'To Login!' : 'To Registration!'"></button>
+    </div>
+  </form>
+  <div *ngIf="message != ''" class="my-3 d-flex justify-content-center">
+    <p [classList]="message == 'Success!' ? 'alert alert-success' : 'alert alert-warning'">{{message}}</p>
+  </div>
+</div>

@@ -11,9 +11,9 @@ import {City} from "../../common/city/city";
 })
 export class CheckoutService {
 
-  countriesUrl = environment.baseUrl + '/countries/search/findAllCountriesWithoutPagination'
-  regionsUrl = environment.baseUrl + '/regions/search/findByCountryCode?code=';
-  citiesUrl = environment.baseUrl + '/cities/search/findByCountryCodeAndRegionCode';
+  countriesUrl = environment.wideBuyUrl + '/countries/search/findAllCountriesWithoutPagination'
+  regionsUrl = environment.wideBuyUrl + '/regions/search/findByCountryCode?code=';
+  citiesUrl = environment.wideBuyUrl + '/cities/search/findByCountryCodeAndRegionCode';
 
   constructor(private http: HttpClient) {
   }
