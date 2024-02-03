@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CartItem} from "../../common/cart-item/cart-item";
+import {OrderItem} from "../../common/order-item/order-item";
 import {BehaviorSubject, Subject} from "rxjs";
 
 @Injectable({
@@ -7,8 +7,8 @@ import {BehaviorSubject, Subject} from "rxjs";
 })
 export class CartService {
 
-  cartItems: CartItem[] = [];
-  cartAdjusted: Subject<CartItem[]> = new Subject<CartItem[]>;
+  cartItems: OrderItem[] = [];
+  cartAdjusted: Subject<OrderItem[]> = new Subject<OrderItem[]>;
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
   storage: Storage = localStorage;
@@ -24,8 +24,8 @@ export class CartService {
 
 
 
-  addCartItem(cartItem: CartItem){
-    let existingCartItem = this.cartItems.find(tempItem => tempItem.id === cartItem.id)
+  addCartItem(cartItem: OrderItem){
+    let existingCartItem = this.cartItems.find(tempItem => tempItem.productId === cartItem.productId)
 
     if(existingCartItem === undefined) {
       this.cartItems.push(cartItem)
@@ -37,7 +37,7 @@ export class CartService {
     this.computeTotals()
   }
 
-  decrementQuantity(theCartItem: CartItem) {
+  decrementQuantity(theCartItem: OrderItem) {
 
     theCartItem.quantity--;
 
@@ -49,10 +49,10 @@ export class CartService {
     }
   }
 
-  remove(theCartItem: CartItem) {
+  remove(theCartItem: OrderItem) {
 
     // get index of item in the array
-    const itemIndex = this.cartItems.findIndex( tempCartItem => tempCartItem.id === theCartItem.id );
+    const itemIndex = this.cartItems.findIndex( tempCartItem => tempCartItem.productId === theCartItem.productId);
 
     // if found, remove the item from the array at the given index
     if (itemIndex > -1) {

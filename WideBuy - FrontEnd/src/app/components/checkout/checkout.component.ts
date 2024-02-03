@@ -6,6 +6,11 @@ import {Region} from "../../common/region/region";
 import {City} from 'src/app/common/city/city';
 import {debounceTime, distinctUntilChanged, map, Observable} from "rxjs";
 import {WideBuyValidators} from "../../validators/wide-buy-validators";
+import {Order} from "../../common/order/order";
+import {CartService} from "../../services/cart-service/cart.service";
+import {OrderItem} from "../../common/order-item/order-item";
+import {Purchase} from "../../common/purchase/purchase";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkout',
@@ -15,7 +20,8 @@ import {WideBuyValidators} from "../../validators/wide-buy-validators";
 export class CheckoutComponent implements OnInit {
 
   form!: FormGroup;
-
+  totalQuantity: number = 0;
+  totalPrice: number = 0;
   modelCountry: any;
   modelRegion: any;
   modelCity: any;
@@ -28,7 +34,9 @@ export class CheckoutComponent implements OnInit {
   months: number[] = [];
 
   commonValidation = [Validators.required, Validators.minLength(2), WideBuyValidators.noWhitespaceValidator]
-  constructor(private checkoutService: CheckoutService) {
+  constructor(private checkoutService: CheckoutService,
+              private cartService: CartService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -37,6 +45,16 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.fetchCountries().subscribe(
       data => {
         this.countries = data;
+      }
+    )
+    this.cartService.totalPrice.subscribe(
+      response=> {
+        this.totalPrice = response
+      }
+    )
+    this.cartService.totalQuantity.subscribe(
+      response=> {
+        this.totalQuantity = response
       }
     )
     this.form = new FormGroup({
@@ -63,7 +81,36 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value)
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    let order = new Order(this.totalQuantity, this.totalPrice);
+
+    let orderItems: OrderItem[] = this.cartService.cartItems;
+
+    let purchase = new Purchase();
+
+    purchase.customer = this.form.controls['userInfo'].value;
+
+    purchase.shippingAddress = this.form.controls['shippingInfo'].value;
+
+    purchase.order = order;
+    purchase.orderItems = orderItems;
+
+    this.checkoutService.placeOrder(purchase).subscribe({
+      next: (response: any) => {
+        alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`)
+        this.form.reset();
+        this.cartService.cartItems = [];
+        this.cartService.computeTotals();
+        this.router.navigateByUrl('/');
+      },
+      error: (err: any) => {
+        alert(`There was an error: ${err.message}`)
+      }
+    })
   }
 
   handleYearChange(value: string) {

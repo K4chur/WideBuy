@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {ProductListComponent} from './components/product-list/product-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Route, RouterModule} from "@angular/router";
 import {ProductDetailComponent} from './components/product-detail/product-detail.component';
@@ -49,7 +49,11 @@ const routes: Route[] = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule
   ],
-  providers: [TokenInterceptor],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

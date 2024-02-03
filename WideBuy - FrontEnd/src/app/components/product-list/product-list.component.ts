@@ -2,7 +2,7 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Product} from "../../common/product/product";
 import {ProductService} from "../../services/product-service/product.service";
 import {ActivatedRoute} from "@angular/router";
-import {CartItem} from "../../common/cart-item/cart-item";
+import {OrderItem} from "../../common/order-item/order-item";
 import {CartService} from "../../services/cart-service/cart.service";
 
 @Component({
@@ -68,7 +68,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    let cartItem: CartItem = new CartItem(product.id, product.name, product.imageUrl, product.unitPrice);
+    let cartItem: OrderItem = new OrderItem(product.id, product.name, product.imageUrl, product.unitPrice);
     this.cartService.addCartItem(cartItem);
   }
 }

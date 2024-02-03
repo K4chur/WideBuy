@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit() {
     if(window.sessionStorage.getItem('app.token')){
-      console.log("hey")
       this.authService.authSubject.next(true)
     }
     this.authService.authSubject.subscribe(
@@ -50,6 +49,7 @@ export class NavbarComponent implements OnInit{
   logout() {
     window.sessionStorage.clear();
     this.authService.authSubject.next(false);
+    this.router.navigateByUrl("/");
   }
 
   protected readonly sessionStorage = sessionStorage;
