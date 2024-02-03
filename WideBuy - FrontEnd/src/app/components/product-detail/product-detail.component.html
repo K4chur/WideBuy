@@ -11,6 +11,8 @@
       <hr>
       <div class="d-flex justify-content-center">
         <button (click)="addToCart()" class="text-muted btn btn-outline-primary">Add to cart</button>
+        <button *ngIf="!isLikedItem(product)" (click)="addToLikedItems(product)" class="ms-2 bi bi-heart btn btn-outline-danger"></button>
+        <button *ngIf="isLikedItem(product)" (click)="removeFromLikedItems(product)" class="ms-2 bi bi-heart-fill btn btn-outline-danger"></button>
         <a routerLink="/products" class="ms-2 text-muted btn btn-outline-info">Go back to products!</a>
       </div>
     </div>

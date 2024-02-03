@@ -19,6 +19,8 @@
           <div class="d-flex justify-content-between mb-2">
             <button (click)="addToCart(product)" class="text-muted btn btn-outline-primary">Add to cart</button>
             <a routerLink="/product/{{product.id}}"  class="ms-2 text-muted btn btn-outline-info">Details</a>
+            <button *ngIf="!isLikedItem(product)" (click)="addToLikedItems(product)" class="ms-2 bi bi-heart btn btn-outline-danger"></button>
+            <button *ngIf="isLikedItem(product)" (click)="removeFromLikedItems(product)" class="ms-2 bi bi-heart-fill btn btn-outline-danger"></button>
             <div class="ms-auto text-warning mt-2">
               <i class="bi bi-star"></i>
               <i class="bi bi-star"></i>

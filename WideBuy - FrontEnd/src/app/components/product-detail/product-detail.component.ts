@@ -4,6 +4,7 @@ import {ProductService} from "../../services/product-service/product.service";
 import {ActivatedRoute} from "@angular/router";
 import {CartService} from "../../services/cart-service/cart.service";
 import {OrderItem} from "../../common/order-item/order-item";
+import {LikedItemsService} from "../../services/likedItems-service/liked-items.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -15,7 +16,8 @@ export class ProductDetailComponent implements OnInit{
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private likedItemsService: LikedItemsService) {
   }
 
   ngOnInit() {
@@ -27,5 +29,17 @@ export class ProductDetailComponent implements OnInit{
   addToCart() {
     let cartItem: OrderItem = new OrderItem(this.product.id, this.product.name, this.product.imageUrl, this.product.unitPrice);
     this.cartService.addCartItem(cartItem);
+  }
+
+  isLikedItem(product: Product) {
+    return this.likedItemsService.isLikedItem(product);
+  }
+
+  addToLikedItems(product: Product) {
+    this.likedItemsService.addToLikedItems(product);
+  }
+
+  removeFromLikedItems(product: Product) {
+    this.likedItemsService.removeFromLikedItems(product);
   }
 }

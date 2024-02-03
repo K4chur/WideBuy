@@ -1,9 +1,10 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from "../../common/product/product";
 import {ProductService} from "../../services/product-service/product.service";
 import {ActivatedRoute} from "@angular/router";
 import {OrderItem} from "../../common/order-item/order-item";
 import {CartService} from "../../services/cart-service/cart.service";
+import {LikedItemsService} from "../../services/likedItems-service/liked-items.service";
 
 @Component({
   selector: 'app-product-list',
@@ -17,10 +18,10 @@ export class ProductListComponent implements OnInit {
   maxSize: number = 5;
 
   products: Product[] = [];
-
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private likedItemsService: LikedItemsService) {
   }
 
   ngOnInit() {
@@ -70,5 +71,18 @@ export class ProductListComponent implements OnInit {
   addToCart(product: Product) {
     let cartItem: OrderItem = new OrderItem(product.id, product.name, product.imageUrl, product.unitPrice);
     this.cartService.addCartItem(cartItem);
+  }
+
+  addToLikedItems(product: Product) {
+    this.likedItemsService.addToLikedItems(product)
+  }
+
+  removeFromLikedItems(product: Product) {
+    this.likedItemsService.removeFromLikedItems(product)
+  }
+
+  isLikedItem(product: Product): boolean {
+    console.log(this.products)
+    return this.likedItemsService.isLikedItem(product)
   }
 }

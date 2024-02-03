@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Order} from "../../common/order/order";
-import {OrderItem} from "../../common/order-item/order-item";
 import {ProfileService} from "../../services/profile-service/profile.service";
 import {OrderHistory} from "../../common/order-history/order-history";
+import {Product} from "../../common/product/product";
+import {LikedItemsService} from "../../services/likedItems-service/liked-items.service";
 
 @Component({
   selector: 'app-profile',
@@ -12,15 +12,19 @@ import {OrderHistory} from "../../common/order-history/order-history";
 export class ProfileComponent implements OnInit{
   userChoose: boolean = false;
   orders: OrderHistory[] = [];
-  likedItems: OrderItem[] = [];
+  likedItems: Product[] = [];
   protected readonly sessionStorage = sessionStorage;
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService,
+              private likedItemsService: LikedItemsService) {
   }
   ngOnInit() {
     this.profileService.loadOrderHistory().subscribe(data => {
       this.orders = data;
       console.log(this.orders);
+    })
+    this.likedItemsService.likedItemsSubject.subscribe(data => {
+      this.likedItems = data;
     })
   }
 

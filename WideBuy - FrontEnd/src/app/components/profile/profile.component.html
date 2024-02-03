@@ -37,11 +37,11 @@
           </thead>
           <tbody>
           <tr *ngFor="let order of orders">
-            <th>{{order.id}}</th>
-            <td>{{order.orderTrackingNumber}}</td>
-            <td>{{order.totalPrice | currency:'USD'}}</td>
-            <td>{{order.totalQuantity}}</td>
-            <td>{{order.dateCreated}}</td>
+            <th>{{ order.id }}</th>
+            <td>{{ order.orderTrackingNumber }}</td>
+            <td>{{ order.totalPrice | currency:'USD' }}</td>
+            <td>{{ order.totalQuantity }}</td>
+            <td>{{ order.dateCreated }}</td>
           </tr>
           </tbody>
         </table>
@@ -58,7 +58,37 @@
         </div>
       </div>
       <div *ngIf="likedItems.length > 0" class="mt-3">
+        <div class="row mt-2">
+          <div class="col-md-12 col-lg-4 mb-4 mb-lg-0" *ngFor="let product of likedItems">
+            <div class="card mt-3">
+              <a routerLink="/product/{{product.id}}">
+                <img src="{{product.imageUrl}}"
+                     class="card-img-top" alt="Laptop"/>
+              </a>
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <!--            <p class="small text-danger"><s>$1099</s></p>-->
+                </div>
 
+                <div class="d-flex justify-content-between mb-3">
+                  <h5 class="mb-0">{{ product.name }}</h5>
+                  <h5 class="text-dark mb-0">{{ product.unitPrice | currency:'USD' }}</h5>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                  <a routerLink="/product/{{product.id}}" class="ms-2 text-muted btn btn-outline-info">Details</a>
+                  <div class="ms-auto text-warning mt-2">
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div *ngIf="likedItems.length < 1" class="alert-warning alert mt-3">
         <p class="text-center mb-0">There is no liked items!</p>
