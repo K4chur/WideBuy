@@ -3,7 +3,7 @@ import {Product} from "../../common/product/product";
 import {ProductService} from "../../services/product-service/product.service";
 import {ActivatedRoute} from "@angular/router";
 import {CartService} from "../../services/cart-service/cart.service";
-import {CartItem} from "../../common/cart-item/cart-item";
+import {OrderItem} from "../../common/order-item/order-item";
 
 @Component({
   selector: 'app-product-detail',
@@ -25,7 +25,7 @@ export class ProductDetailComponent implements OnInit{
   }
 
   addToCart() {
-    let cartItem: CartItem = new CartItem(this.product.id, this.product.name, this.product.imageUrl, this.product.unitPrice);
+    let cartItem: OrderItem = new OrderItem(this.product.id, this.product.name, this.product.imageUrl, this.product.unitPrice);
     this.cartService.addCartItem(cartItem);
   }
 }

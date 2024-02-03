@@ -5,6 +5,7 @@ import {Country} from "../../common/country/country";
 import {environment} from "../../../environments/environment.development";
 import {Region} from "../../common/region/region";
 import {City} from "../../common/city/city";
+import {Purchase} from "../../common/purchase/purchase";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,13 @@ export class CheckoutService {
   countriesUrl = environment.wideBuyUrl + '/countries/search/findAllCountriesWithoutPagination'
   regionsUrl = environment.wideBuyUrl + '/regions/search/findByCountryCode?code=';
   citiesUrl = environment.wideBuyUrl + '/cities/search/findByCountryCodeAndRegionCode';
+  purchaseUrl = environment.baseUrl+'/checkout/purchase';
 
   constructor(private http: HttpClient) {
+  }
+
+  placeOrder(purchase: Purchase): Observable<any> {
+    return this.http.post<Purchase>(this.purchaseUrl, purchase);
   }
 
   fetchCountries(): Observable<Country[]> {
