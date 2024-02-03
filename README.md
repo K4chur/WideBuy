@@ -6,8 +6,8 @@ What was implemented:
 - Navbar, footer, product-list, product-details components and product service for fetching data.
 - Cart. Adding, removing items, total items, total price, saving to localStorage.
 - Checkout, form validation, advices for address from bd.
-- Auth via JWT. Profile and order data.
-//TODO: Liked Products,Rating for products (maybe something more)
+- Auth via JWT. Profile and order data, Liked Products
+//TODO: Rating for products (maybe something more), Wider Search
 
 Basic layouts of:
 - main page:
