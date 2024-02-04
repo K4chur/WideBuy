@@ -7,9 +7,10 @@ What was implemented:
 - Cart. Adding, removing items, total items, total price, saving to localStorage.
 - Checkout, form validation, advices for address from bd.
 - Auth via JWT. Profile and order data, Liked Products
-//TODO: Rating for products (maybe something more), Wider Search
+- Star based rating and reviews for products
+//TODO: Wider Search
 
-Basic layouts of:
+Basic layouts of: //TO BE UPDATED
 - main page:
 ![screencapture-localhost-4200-products-2024-01-08-19_42_20](https://github.com/K4chur/WideBuy/assets/51864946/05d1f017-8b8f-4098-a049-5a9d3b5bea6e)
 - product details:
