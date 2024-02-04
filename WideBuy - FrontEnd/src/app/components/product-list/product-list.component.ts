@@ -82,7 +82,14 @@ export class ProductListComponent implements OnInit {
   }
 
   isLikedItem(product: Product): boolean {
-    console.log(this.products)
     return this.likedItemsService.isLikedItem(product)
+  }
+
+  getFilledStars(rating: number): number[] {
+    return Array.from({ length: Math.round(rating) }, (_, index) => index + 1);
+  }
+
+  getEmptyStars(rating: number): number[] {
+    return Array.from({ length: 5 - Math.round(rating) }, (_, index) => index + 1);
   }
 }

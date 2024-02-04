@@ -6,6 +6,7 @@ export class Product {
               public imageUrl: string,
               public dateCreated: Date,
               public lastUpdated: Date,
+              public averageRating: number,
               public category_id: number) {
   }
 }

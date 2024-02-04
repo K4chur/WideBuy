@@ -82,7 +82,7 @@ public class WebSecurityConfig  {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/wide-buy/orders").authenticated()
-                        .requestMatchers("/wide-buy/**","/signUp","/signIn", "/error").permitAll()
+                        .requestMatchers("/wide-buy/**","/signUp","/signIn", "/error", "/review/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll()

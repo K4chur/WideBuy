@@ -41,7 +41,7 @@
             <td>{{ order.orderTrackingNumber }}</td>
             <td>{{ order.totalPrice | currency:'USD' }}</td>
             <td>{{ order.totalQuantity }}</td>
-            <td>{{ order.dateCreated }}</td>
+            <td>{{ order.dateCreated | date: 'dd-MM-YYYY'}}</td>
           </tr>
           </tbody>
         </table>

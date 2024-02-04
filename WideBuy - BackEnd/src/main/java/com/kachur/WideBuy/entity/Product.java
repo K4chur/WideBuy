@@ -10,6 +10,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -43,7 +46,30 @@ public class Product {
     @LastModifiedDate
     private Date lastUpdated;
 
+    @Column(name = "average_rating")
+    private Double averageRating;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private ProductCategory category;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<Review> reviews = new HashSet<>();
+
+    public void addReview(Review review){
+        if(this.reviews == null){
+         this.reviews = new HashSet<>();
+        }
+        this.reviews.add(review);
+        review.setProduct(this);
+    }
+
+    public void updateAverageRating() {
+        if (reviews.isEmpty()) {
+            averageRating = 0.0;
+        } else {
+            double totalRating = reviews.stream().mapToDouble(Review::getRating).sum();
+            averageRating = totalRating / reviews.size();
+        }
+    }
 }
