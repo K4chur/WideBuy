@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../services/product-service/product.service";
 import {ProductCategory} from "../../common/product-category/product-category";
-import {Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
 import {CartService} from "../../services/cart-service/cart.service";
 import {AuthService} from "../../services/auth-service/auth.service";
+import {Brand} from "../../common/brand/brand";
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import {AuthService} from "../../services/auth-service/auth.service";
 export class NavbarComponent implements OnInit{
 
   categories: ProductCategory[] = [];
+  brands: Brand[] = [];
   cartLength: number = 0;
   authenticated: boolean = false;
   constructor(private productService: ProductService,
@@ -35,6 +37,11 @@ export class NavbarComponent implements OnInit{
         this.categories = data;
       }
     )
+    this.productService.fetchBrands().subscribe(
+      data => {
+        this.brands = data;
+      }
+    )
     this.cartService.totalQuantity.subscribe(
       response => {
         this.cartLength = response
@@ -43,7 +50,12 @@ export class NavbarComponent implements OnInit{
   }
 
   onSearch(value: string) {
-    this.router.navigateByUrl(`/search/${value}`)
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'searchTerm': value }
+    };
+
+    // Navigate to the search route with the specified query parameter
+    this.router.navigate(['/search'], navigationExtras);
   }
 
   logout() {

@@ -56,6 +56,10 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<Review> reviews = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
     public void addReview(Review review){
         if(this.reviews == null){
          this.reviews = new HashSet<>();

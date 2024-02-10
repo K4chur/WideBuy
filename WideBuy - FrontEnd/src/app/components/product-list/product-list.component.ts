@@ -44,8 +44,8 @@ export class ProductListComponent implements OnInit {
           this.totalElements = data.page.totalElements;
         }
       )
-    } else if (this.route.snapshot.paramMap.has('searchKey')) {
-      this.productService.fetchProductsBySearchKey(this.page - 1, this.pageSize, this.route.snapshot.paramMap.get('searchKey')!).subscribe(
+    } else if (this.route.snapshot.paramMap.has('brandId')) {
+      this.productService.fetchProductsOfBrand(this.page - 1, this.pageSize, +this.route.snapshot.paramMap.get('brandId')!).subscribe(
         data => {
           this.products = data._embedded.products;
           this.page = data.page.number + 1;

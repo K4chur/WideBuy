@@ -7,6 +7,7 @@ export class Product {
               public dateCreated: Date,
               public lastUpdated: Date,
               public averageRating: number,
-              public category_id: number) {
+              public category_id: number,
+              public brand_id: number) {
   }
 }

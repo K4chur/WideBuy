@@ -16,6 +16,9 @@ import {LoginComponent} from './components/login/login.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {TokenInterceptor} from "./interceptors/token-interceptor/token.interceptor";
 import {authGuard} from "./guards/auth-guart/auth.guard";
+import { WiderSearchComponent } from './components/wider-search/wider-search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSliderModule} from "@angular/material/slider";
 
 const routes: Route[] = [
   {path: 'login', component: LoginComponent},
@@ -23,9 +26,10 @@ const routes: Route[] = [
   {path: 'products', component: ProductListComponent},
   {path: 'cart', component: CartComponent},
   {path: 'checkout', component: CheckoutComponent, canActivate: [authGuard]},
-  {path: 'search/:searchKey', component: ProductListComponent},
+  {path: 'search', component: WiderSearchComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'category/:id', component: ProductListComponent},
+  {path: 'brand/:brandId', component: ProductListComponent},
   {path: '', redirectTo:'/products', pathMatch:'full'},
   {path: '**', redirectTo:'/products'}
 ]
@@ -40,14 +44,17 @@ const routes: Route[] = [
     CartComponent,
     CheckoutComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    WiderSearchComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
