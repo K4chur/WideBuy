@@ -31,4 +31,24 @@ export class ProfileComponent implements OnInit{
   toggleView() {
     this.userChoose = !this.userChoose;
   }
+
+  addToLikedItems(product: Product) {
+    this.likedItemsService.addToLikedItems(product)
+  }
+
+  removeFromLikedItems(product: Product) {
+    this.likedItemsService.removeFromLikedItems(product)
+  }
+
+  isLikedItem(product: Product): boolean {
+    return this.likedItemsService.isLikedItem(product)
+  }
+
+  getFilledStars(rating: number): number[] {
+    return Array.from({ length: Math.round(rating) }, (_, index) => index + 1);
+  }
+
+  getEmptyStars(rating: number): number[] {
+    return Array.from({ length: 5 - Math.round(rating) }, (_, index) => index + 1);
+  }
 }
