@@ -46,7 +46,7 @@ export class WiderSearchComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
         this.searchTerm = params['searchTerm'];
         console.log(this.searchTerm)
-        this.productService.fetchProductsBySearchKey(this.page,this.pageSize,this.searchTerm).subscribe(
+        this.productService.fetchProductsBySearchKey(this.page-1,this.pageSize,this.searchTerm).subscribe(
           data => {
             this.products = data._embedded.products;
             this.page = data.page.number + 1;
@@ -79,7 +79,7 @@ export class WiderSearchComponent implements OnInit {
 
   getProducts() {
     const filters = this.form.value;
-    this.productService.searchProducts(filters,this.page,this.pageSize).subscribe(
+    this.productService.searchProducts(filters,this.page-1,this.pageSize).subscribe(
       (data) => {
         console.log(data)
         this.products = data._embedded.products;

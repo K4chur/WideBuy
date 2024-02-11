@@ -61,10 +61,9 @@ export class ProductService {
     if (brandIds) params = params.append('brandIds', brandIds.join(','));
     if (minPrice) params = params.append('minPrice', minPrice.toString());
     if (maxPrice) params = params.append('maxPrice', maxPrice.toString());
-    params.append('page',page.toString());
-    params.append('size',pageSize.toString());
+
     // Make the GET request
-    return this.http.get<GetProducts>(`${this.productUrl}/search/findProductsByFilters`, { params });
+    return this.http.get<GetProducts>(`${this.productUrl}/search/findProductsByFilters?page=${page}&size=${pageSize}`, { params });
   }
 
 }
